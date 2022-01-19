@@ -6,12 +6,47 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:56:37 by ehosu             #+#    #+#             */
-/*   Updated: 2022/01/17 16:04:07 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/01/19 17:20:58 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
+
+static	int	is_space_l(int c)
+{
+	if (c == '\t' || c == ' ' || c == '\n'
+		|| c == '\r' || c == '\v' || c == '\f')
+		return (1);
+	return (0);
+}
+
+long	ft_atol(const char *str)
+{
+	long	res;
+	long	sign;
+	long	i;
+
+	res = 0;
+	sign = 1;
+	i = 0;
+	while (is_space_l(str[i]))
+	{
+		i++;
+	}
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res = (res * 10) + str[i] - '0';
+		i++;
+	}
+	return (res * sign);
+}
 
 /**
  * Create node
@@ -261,8 +296,68 @@ void	stack_destroy(t_stack *stack)
 	free(stack);
 }
 
-// int main(int argc, char **argv)
-int main()
+void	check_for_non_numeric_values(char **argv)
+{
+	int i;
+
+	i = 1;
+	while (argv[i])
+	{
+		if ((ft_atoi(argv[i]) == 0) && (ft_strncmp(argv[i], "0", 1) != 0))
+		{
+			write(1, "Error\n", 6);
+			exit(EXIT_FAILURE);
+		}
+		i++;
+	}
+}
+
+void	check_range(char **argv)
+{
+	int i;
+
+	i = 1;
+	while (argv[i])
+	{
+		if ((ft_atol(argv[i]) > INT_MAX) || (ft_atol(argv[i]) < INT_MIN))
+		{
+			write(1, "Error\n", 6);
+			exit(EXIT_FAILURE);
+		}
+		i++;
+	}
+}
+
+void	check_for_duplicate(char **argv)
+{
+	int i;
+	int j;
+
+	i = 1;
+	while (argv[i])
+	{
+		j = 2;
+		while (argv[j])
+		{
+			if (ft_atoi(argv[i]) == ft_atoi(argv[j]) && (i != j))
+			{
+				write(1, "Error\n", 6);
+				exit(EXIT_FAILURE);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	handle_errors(char **argv)
+{
+	check_for_non_numeric_values(argv);
+	check_range(argv);
+	check_for_duplicate(argv);
+}
+
+int main(int argc, char **argv)
 {
 	t_node *ptr_a, *ptr_b;
 	t_stack *a_stack;
@@ -270,13 +365,16 @@ int main()
 
 	a_stack = create_stack();
 	b_stack = create_stack();
-	stack_push_bottom(a_stack, 7);
-	stack_push_bottom(a_stack, 10);
-	stack_push_bottom(a_stack, 11);
-	stack_push_bottom(b_stack, 1);
-	stack_push_bottom(b_stack, 19);
+	// stack_push_bottom(a_stack, 7);
+	// stack_push_bottom(a_stack, 10);
+	// stack_push_bottom(a_stack, 11);
+	// stack_push_bottom(b_stack, 1);
+	// stack_push_bottom(b_stack, 19);
+	
+	if (argc < 2)
+		exit(EXIT_FAILURE);
+	handle_errors(argv);
 
-	printf("stack a\n");
 	ptr_a = a_stack->top;
 	while (ptr_a != NULL)
 	{

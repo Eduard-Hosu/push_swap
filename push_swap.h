@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:54:05 by ehosu             #+#    #+#             */
-/*   Updated: 2022/01/17 16:00:06 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/01/19 16:42:22 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "libft/libft.h"
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 
 typedef struct s_node
 {
@@ -41,5 +42,9 @@ void	rotate_first_with_last_element(t_stack *stack, char chr);
 void	rotate_a_rotate_b(t_stack *first_stack, t_stack *second_stack);
 void	rotate_last_with_first_element(t_stack *stack, char chr);
 void	reverse_rotate_a_and_b(t_stack *first_stack, t_stack *second_stack);
+void	handle_errors(char **argv);
+void	check_for_non_numeric_values(char **argv);
+void	check_range(char **argv);
+void	check_for_duplicate(char **argv);
 
 #endif
