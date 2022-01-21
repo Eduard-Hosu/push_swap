@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:56:37 by ehosu             #+#    #+#             */
-/*   Updated: 2022/01/19 17:20:58 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/01/21 16:56:50 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,24 +357,102 @@ void	handle_errors(char **argv)
 	check_for_duplicate(argv);
 }
 
+void	add_to_stack(t_stack *stack, char **argv)
+{
+	int i;
+
+	i = 1;
+	while (argv[i])
+	{
+		stack_push_bottom(stack, ft_atoi(argv[i]));
+		i++;
+	}
+}
+
+void	swap(int *current, int *next)
+{
+	int	temp;
+
+	temp = *current;
+	*current = *next;
+	*next = temp;
+}
+
+void	bubble_sort(int arr[], int n)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < n)
+	{
+		j = 0;
+		while (j < n - i)
+		{
+			if (arr[j] > arr[j + 1])
+				swap(&arr[j], &arr[j + 1]);
+			j++;
+		}
+		i++;
+	}
+}
+
+
+
+int	*add_to_array(t_stack *stack)
+{
+	int i;
+	int	*values;
+	t_node	*ptr;
+
+	i = 0;
+	values = ft_calloc(node_size(stack->top), sizeof(int));
+	ptr = stack->top;
+	while (node_size(stack->top) > i)
+	{
+		values[i] = ptr->value;
+
+		ptr = ptr->prev;
+		i++;
+	}
+	bubble_sort(values, i - 1);
+	return (values);
+}
+
 int main(int argc, char **argv)
 {
 	t_node *ptr_a, *ptr_b;
 	t_stack *a_stack;
 	t_stack *b_stack;
+	int *arr_values;
+	int test;
 
 	a_stack = create_stack();
 	b_stack = create_stack();
-	// stack_push_bottom(a_stack, 7);
-	// stack_push_bottom(a_stack, 10);
-	// stack_push_bottom(a_stack, 11);
-	// stack_push_bottom(b_stack, 1);
-	// stack_push_bottom(b_stack, 19);
 	
 	if (argc < 2)
 		exit(EXIT_FAILURE);
 	handle_errors(argv);
+	add_to_stack(a_stack, argv);
+	ptr_a = a_stack->top;
+	while (ptr_a != NULL)
+	{
+		printf("%d\n", ptr_a->value);
+		ptr_a = ptr_a->prev;
+	}
+	arr_values = add_to_array(a_stack);
+	test = 0;
+	ptr_a = a_stack->top;
+	while (arr_values[test])
+	{
+		printf("%d ", arr_values[test]);
+		test++;
+	}
+	exit(EXIT_SUCCESS);
 
+	printf("something it's wrong");
+	exit(EXIT_FAILURE);
 	ptr_a = a_stack->top;
 	while (ptr_a != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:54:05 by ehosu             #+#    #+#             */
-/*   Updated: 2022/01/19 16:42:22 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/01/21 16:30:42 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,9 @@ void	handle_errors(char **argv);
 void	check_for_non_numeric_values(char **argv);
 void	check_range(char **argv);
 void	check_for_duplicate(char **argv);
+void	add_to_stack(t_stack *stack, char **argv);
+int		*add_to_array(t_stack *stack);
+void	swap(int *current, int *next);
+void	bubble_sort(int arr[], int n);
 
 #endif
