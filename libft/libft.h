@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:40:47 by ehosu             #+#    #+#             */
-/*   Updated: 2022/01/18 16:58:48 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/01/26 13:08:08 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		ft_isalnum(int c);
 int		ft_isdigit(int c);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_atoi(const char *str);
+long	ft_atol(const char *str);
 size_t	ft_strlen(const char *str);
 void	*ft_memset(void *str, int c, int len);
 void	*ft_memcpy(void *dest, const void *src, size_t len);

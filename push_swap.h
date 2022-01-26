@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:54:05 by ehosu             #+#    #+#             */
-/*   Updated: 2022/01/21 16:30:42 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/01/26 19:27:09 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# include <stdio.h>
 
 typedef struct s_node
 {
@@ -33,8 +34,12 @@ typedef struct s_stack
 
 t_node	*create_node(int value);
 t_stack	*create_stack(void);
+void	stack_destroy(t_stack *stack);
 int		stack_push_top(t_stack *stack, int value);
 int		stack_push_bottom(t_stack *stack, int value);
+int		stack_pop_top(t_stack *stack);
+int		stack_pop_bottom(t_stack *stack);
+int		node_size(t_node *node);
 void	swap_first_2_elements(t_stack *stack, char chr);
 void	swap_first_2_in_both(t_stack *stack_one, t_stack *stack_two);
 void	push_top_to_top(t_stack *stack_one, t_stack *stack_two, char chr);
@@ -48,7 +53,11 @@ void	check_range(char **argv);
 void	check_for_duplicate(char **argv);
 void	add_to_stack(t_stack *stack, char **argv);
 int		*add_to_array(t_stack *stack);
-void	swap(int *current, int *next);
+int		*duplicate_array(int *imputs, int stack_length);
 void	bubble_sort(int arr[], int n);
+void	add_stack_sorted_index_values(int *imputs, t_stack *stack);
+int		smallest_number(t_stack *stack);
+int		biggest_number(t_stack *stack);
+int		check_position(t_stack *stack, int number);
 
 #endif
