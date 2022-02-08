@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:54:05 by ehosu             #+#    #+#             */
-/*   Updated: 2022/01/26 19:27:09 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/02/07 12:23:31 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 typedef struct s_node
 {
 	int				value;
+	int				index;
 	struct s_node	*prev;
 	struct s_node	*next;
 }	t_node;
@@ -32,11 +33,11 @@ typedef struct s_stack
 }	t_stack;
 
 
-t_node	*create_node(int value);
+t_node	*create_node(int value, int index);
 t_stack	*create_stack(void);
 void	stack_destroy(t_stack *stack);
-int		stack_push_top(t_stack *stack, int value);
-int		stack_push_bottom(t_stack *stack, int value);
+int		stack_push_top(t_stack *stack, int value, int index);
+int		stack_push_bottom(t_stack *stack, int value, int index);
 int		stack_pop_top(t_stack *stack);
 int		stack_pop_bottom(t_stack *stack);
 int		node_size(t_node *node);
@@ -59,5 +60,14 @@ void	add_stack_sorted_index_values(int *imputs, t_stack *stack);
 int		smallest_number(t_stack *stack);
 int		biggest_number(t_stack *stack);
 int		check_position(t_stack *stack, int number);
+void	sort_small_amaount(t_stack *stack);
+void	small_amount_checker(t_stack *stack);
+// void	check_top_push_value(t_stack *stack_1, t_stack *stack_2, int value, char from, char to);
+void	check_top_push_value(t_stack *stack_1, t_stack *stack_2, int value, char *char_ar);
+// void	check_bottom_push_value(t_stack *stack_1, t_stack *stack_2, int value, char from, char to);
+void	check_bottom_push_value(t_stack *stack_1, t_stack *stack_2, int value, char *char_ar);
+int		check_stack_a_sorted(t_stack *stack);
+int		check_stack_b_sorted(t_stack *stack);
+void	sort_big_amaount(t_stack *stack_a, t_stack *stack_b);
 
 #endif

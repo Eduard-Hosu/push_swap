@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 14:05:31 by ehosu             #+#    #+#             */
-/*   Updated: 2022/01/26 19:25:01 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/02/07 19:16:29 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	smallest_number(t_stack *stack)
 	smallest_value = ptr->value;
 	while (ptr != NULL)
 	{
+		if (ptr->prev == NULL)
+			return (smallest_value);
 		if (smallest_value > ptr->prev->value)
 			smallest_value = ptr->prev->value;
 		ptr = ptr->prev;
@@ -37,6 +39,8 @@ int	biggest_number(t_stack *stack)
 	biggest_value = ptr->value;
 	while (ptr != NULL)
 	{
+		if (ptr->prev == NULL)
+			return (biggest_value);
 		if (biggest_value < ptr->prev->value)
 			biggest_value = ptr->prev->value;
 		ptr = ptr->prev;
@@ -59,4 +63,36 @@ int	check_position(t_stack *stack, int number)
 		i++;
 	}
 	return (0);
+}
+
+int	check_stack_b_sorted(t_stack *stack)
+{
+	t_node	*ptr;
+
+	ptr = stack->bottom;
+	while (ptr != NULL)
+	{
+		if (ptr->next == NULL)
+			return (1);
+		if (ptr->value > ptr->next->value)
+			return (0);
+		ptr = ptr->next;
+	}
+	return (1);
+}
+
+int	check_stack_a_sorted(t_stack *stack)
+{
+	t_node	*ptr;
+
+	ptr = stack->top;
+	while (ptr != NULL)
+	{
+		if (ptr->prev == NULL)
+			return (1);
+		if (ptr->value > ptr->prev->value || ptr->prev->index != ptr->index + 1)
+			return (0);
+		ptr = ptr->prev;
+	}
+	return (1);
 }

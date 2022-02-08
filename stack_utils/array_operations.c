@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 13:56:37 by ehosu             #+#    #+#             */
-/*   Updated: 2022/01/26 19:26:45 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/02/03 10:00:10 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	add_stack_sorted_index_values(int *imputs, t_stack *stack)
 		{
 			if (ptr->value == imputs[i])
 			{
-				ptr->value = i;
+				ptr->index = i;
 				break ;
 			}
 			ptr = ptr->prev;

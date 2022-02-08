@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 13:13:11 by ehosu             #+#    #+#             */
-/*   Updated: 2022/01/26 13:30:35 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/02/03 10:21:51 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * Create node
 */
-t_node	*create_node(int value)
+t_node	*create_node(int value, int index)
 {
 	t_node *node;
 
@@ -23,6 +23,7 @@ t_node	*create_node(int value)
 	if (!node)
 		return (NULL);
 	node->value = value;
+	node->index = index;
 	node->prev = NULL;
 	node->next = NULL;
 	return (node);

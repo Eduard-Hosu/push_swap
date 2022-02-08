@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:56:37 by ehosu             #+#    #+#             */
-/*   Updated: 2022/01/26 19:28:34 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/02/08 18:05:15 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -472,14 +472,169 @@
 // 	return (copy);
 // }
 
+// int check_stack_B_sorted(t_stack *stack)
+// {
+// 	t_node	*ptr;
+
+// 	ptr = stack->bottom;
+// 	while (ptr != NULL)
+// 	{
+// 		if (ptr->next == NULL)
+// 			return (1);
+// 		if (ptr->value > ptr->next->value)
+// 			return (0);
+// 		ptr = ptr->next;
+// 	}
+// 	return (1);
+// }
+
+// int	check_stack_A_sorted(t_stack *stack)
+// {
+// 	t_node	*ptr;
+
+// 	ptr = stack->top;
+// 	while (ptr != NULL)
+// 	{
+// 		if (ptr->prev == NULL)
+// 			return (1);
+// 		if (ptr->value > ptr->prev->value)
+// 			return (0);
+// 		ptr = ptr->prev;
+// 	}
+// 	return (1);
+// }
+
+// void	check_top_push_value(t_stack *stack_1, t_stack *stack_2, int value, char *char_ar)
+// {
+// 	t_node *ptr;
+	
+// 	ptr = stack_1->top;
+// 	while (ptr != NULL)
+// 	{
+// 		if (ptr->value == value)
+// 		{
+// 			push_top_to_top(stack_2, stack_1, char_ar[1]);
+// 			break ;
+// 		} else if (ptr->prev->value == value)
+// 		{
+// 			swap_first_2_elements(stack_1, char_ar[0]);
+// 			push_top_to_top(stack_2, stack_1, char_ar[1]);
+// 			break ;
+// 		}
+// 		rotate_first_with_last_element(stack_1, char_ar[0]);
+// 		ptr = stack_1->top;
+// 	}
+// }
+
+// void	check_bottom_push_value(t_stack *stack_1, t_stack *stack_2, int value, char *char_ar)
+// {
+// 	t_node *ptr;
+
+// 	ptr = stack_1->bottom;
+// 	while (ptr != NULL)
+// 	{
+// 		if (ptr->value == value)
+// 		{
+// 			rotate_last_with_first_element(stack_1, char_ar[0]);
+// 			push_top_to_top(stack_2, stack_1, char_ar[1]);
+// 			break ;
+// 		}
+// 		rotate_last_with_first_element(stack_1, char_ar[0]);
+// 		ptr = stack_1->bottom;
+// 	}
+// }
+
+void	sort_last_two_in_B(t_stack *stack_b, t_stack *stack_a)
+{
+	if (node_size(stack_b->top) == 1)
+	{
+		push_top_to_top(stack_a, stack_b, 'a');
+		return ;
+	}
+	if (stack_b->top->value < stack_b->top->prev->value)
+		swap_first_2_elements(stack_b, 'b');
+	push_top_to_top(stack_a, stack_b, 'a');
+	push_top_to_top(stack_a, stack_b, 'a');
+}
+
+void	move_biggest_to_stack(t_stack *stack_a, t_stack *stack_b)
+{
+	t_node *ptr;
+	int		half_size;
+	int		max_value_position;
+	char	char_ar[2];
+
+	char_ar[0] = 'b';
+	char_ar[1] = 'a';
+	if (stack_b->top == NULL)
+		return ;
+	add_stack_sorted_index_values(add_to_array(stack_b), stack_b);
+	ptr = stack_b->top;
+	half_size = node_size(ptr) / 2;
+	while (node_size(stack_b->top) > 2)
+	{
+		max_value_position = check_position(stack_b, biggest_number(stack_b));
+		if (max_value_position <= half_size)
+			check_top_push_value(stack_b, stack_a, biggest_number(stack_b), char_ar);
+		else
+			check_bottom_push_value(stack_b, stack_a, biggest_number(stack_b), char_ar);
+		half_size = node_size(stack_b->top) / 2;
+		ptr = stack_b->top;
+	}
+	sort_last_two_in_B(stack_b, stack_a);
+}
+
+// void	sort_big_amaount(t_stack *stack_a, t_stack *stack_b)
+// {
+// 	t_node *ptr;
+// 	int		chunk_border;
+// 	int		stack_size;
+// 	int		count;
+// 	int		back_top;
+
+// 	ptr = stack_a->top;
+// 	chunk_border = node_size(ptr) / 2;
+// 	stack_size = node_size(ptr) / 2;
+// 	while (node_size(stack_a->top) >= 4)
+// 	{
+// 		count = 0;
+// 		ptr = stack_a->top;
+// 		while (count < chunk_border)
+// 		{
+// 			back_top = 0;
+// 			if (ptr->index < chunk_border)
+// 			{
+// 				if (check_position(stack_a, ptr->value) <= stack_size)
+// 				{
+// 					check_top_push_value(stack_a, stack_b, ptr->value, 'a', 'b');
+// 					back_top = 1;
+// 				}
+// 				else
+// 				{
+// 					check_bottom_push_value(stack_a, stack_b, ptr->value, 'a', 'b');
+// 					back_top = 1;
+// 				}
+// 				count++;
+// 				stack_size = node_size(stack_a->top) / 2;
+// 				if (check_stack_A_sorted(stack_a))
+// 					break ;
+// 			}
+// 			if (back_top)
+// 				ptr = stack_a->top;
+// 			else
+// 				ptr = ptr->prev;
+// 		}
+// 		add_stack_sorted_index_values(add_to_array(stack_a), stack_a);
+// 		chunk_border = node_size(stack_a->top) / 2;
+// 	}
+// 	small_amount_checker(stack_a);
+// }
+
 int main(int argc, char **argv)
 {
-	t_node *ptr_a, *ptr_b;
+	// t_node *ptr_a;
 	t_stack *a_stack;
 	t_stack *b_stack;
-	// int *arr_values;
-	// int *arr_copy;
-	// int test;
 
 	a_stack = create_stack();
 	b_stack = create_stack();
@@ -488,88 +643,33 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	handle_errors(argv);
 	add_to_stack(a_stack, argv);
-	// ptr_a = a_stack->top;
-	// while (ptr_a != NULL)
-	// {
-	// 	printf("%d\n", ptr_a->value);
-	// 	ptr_a = ptr_a->prev;
-	// }
-	// bubble_sort(values, i - 1);
-	// arr_values = add_to_array(a_stack);
-	// bubble_sort(arr_values, node_size(a_stack->top));
-	// test = 0;
-	// while (arr_values[test])
-	// {
-	// 	printf("%d ", arr_values[test]);
-	// 	test++;
-	// }
-	// printf("new array\n");
-	// arr_copy = convert_to_index_values(add_to_array(a_stack), node_size(a_stack->top));
-
-	// test = 0;
-	// while (test < node_size(a_stack->top))
-	// {
-	// 	printf("%d ", arr_copy[test]);
-	// 	test++;
-	// }
-	// printf("\n%d\n", smallest_number(a_stack));
-	// printf("%d\n", biggest_number(a_stack));
-	// printf("%d\n", check_position(a_stack, smallest_number(a_stack)));
-	// printf("%d\n", check_position(a_stack, biggest_number(a_stack)));
-	// printf("something it's wrong");
-	// exit(EXIT_SUCCESS);
 	add_stack_sorted_index_values(add_to_array(a_stack), a_stack);
-	ptr_a = a_stack->top;
-	while (ptr_a != NULL)
-	{
-		printf("%d\n", ptr_a->value);
-		ptr_a = ptr_a->prev;
-	}
+	// ptr_a = a_stack->top;
+	// while (ptr_a != NULL)
+	// {
+	// 	printf("%d\n", ptr_a->value);
+	// 	ptr_a = ptr_a->prev;
+	// }
+	sort_big_amaount(a_stack, b_stack);
+	move_biggest_to_stack(a_stack, b_stack);
+	//Personal
+	// printf("Check stack_a\n");
+	// ptr_a = a_stack->top;
+	// while (ptr_a != NULL)
+	// {
+	// 	printf("%d\n", ptr_a->value);
+	// 	ptr_a = ptr_a->prev;
+	// }
+	// printf("Check stack_b\n");
+	// ptr_a = b_stack->top;
+	// while (ptr_a != NULL)
+	// {
+	// 	printf("%d\n", ptr_a->value);
+	// 	ptr_a = ptr_a->prev;
+	// }
+
+	// printf("%d\n", a_stack->top->value);
 	exit(EXIT_SUCCESS);
-	// swap_first_2_elements(a_stack, 'a');
-	// ptr_a = a_stack->top;
-	// while (ptr_a != NULL)
-	// {
-	// 	printf("%d\n", ptr_a->value);
-	// 	ptr_a = ptr_a->prev;
-	// }
-	printf("stack b\n");
-	ptr_b = b_stack->top;
-	while (ptr_b != NULL)
-	{
-		printf("%d\n", ptr_b->value);
-		ptr_b = ptr_b->prev;
-	}
-	// push_top_to_top(a_stack, b_stack);
-	// printf("new stack a\n");
-	// ptr_a = a_stack->top;
-	// while (ptr_a != NULL)
-	// {
-	// 	printf("%d\n", ptr_a->value);
-	// 	ptr_a = ptr_a->prev;
-	// }
-	// printf("new stack b\n");
-	// ptr_b = b_stack->top;
-	// while (ptr_b != NULL)
-	// {
-	// 	printf("%d\n", ptr_b->value);
-	// 	ptr_b = ptr_b->prev;
-	// }
-	swap_first_2_in_both(a_stack, b_stack);
-	printf("new stack a\n");
-	ptr_a = a_stack->top;
-	while (ptr_a != NULL)
-	{
-		printf("%d\n", ptr_a->value);
-		ptr_a = ptr_a->prev;
-	}
-	printf("new stack b\n");
-	ptr_b = b_stack->top;
-	while (ptr_b != NULL)
-	{
-		printf("%d\n", ptr_b->value);
-		ptr_b = ptr_b->prev;
-	}
 
 	return (0);
 }

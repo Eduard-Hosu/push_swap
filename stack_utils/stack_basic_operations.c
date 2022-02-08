@@ -6,17 +6,17 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 13:20:23 by ehosu             #+#    #+#             */
-/*   Updated: 2022/01/26 13:53:20 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/02/04 16:31:17 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-int	stack_push_top(t_stack *stack, int value)
+int	stack_push_top(t_stack *stack, int value, int index)
 {
 	t_node *node;
 
-	node = create_node(value);
+	node = create_node(value, index);
 	node->prev = stack->top;
 	stack->top = node;
 	if (!node->prev) 
@@ -30,11 +30,11 @@ int	stack_push_top(t_stack *stack, int value)
 	return (0);
 }
 
-int	stack_push_bottom(t_stack *stack, int value)
+int	stack_push_bottom(t_stack *stack, int value, int index)
 {
 	t_node	*node;
 
-	node = create_node(value);
+	node = create_node(value, index);
 	if (!node)
 		return (-1);
 	node->next = stack->bottom;
@@ -62,6 +62,7 @@ int	stack_pop_top(t_stack *stack)
 		stack->top = NULL;
 		stack->bottom = NULL;
 		free(temp);
+		return (0);
 	}
 	temp = stack->top;
 	stack->top = stack->top->prev;
@@ -98,7 +99,7 @@ void	add_to_stack(t_stack *stack, char **argv)
 	i = 1;
 	while (argv[i])
 	{
-		stack_push_bottom(stack, ft_atoi(argv[i]));
+		stack_push_bottom(stack, ft_atoi(argv[i]), -1);
 		i++;
 	}
 }

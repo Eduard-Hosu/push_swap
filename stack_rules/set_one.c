@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 13:37:00 by ehosu             #+#    #+#             */
-/*   Updated: 2022/01/26 13:42:01 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/02/03 10:27:04 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,19 @@
 */
 void	swap_first_2_elements(t_stack *stack, char chr)
 {
-	int	temp;
+	int	temp_value;
+	int	temp_index;
 
-	temp = 0;
+	temp_value = 0;
+	temp_index = 0;
 	if (node_size(stack->top) < 2)
 		return ;
-	temp = stack->top->value;
+	temp_value = stack->top->value;
+	temp_index = stack->top->index;
 	stack->top->value = stack->top->prev->value;
-	stack->top->prev->value = temp;
+	stack->top->index = stack->top->prev->index;
+	stack->top->prev->value = temp_value;
+	stack->top->prev->index = temp_index;
 	if (chr == 'a')
 		write(1, "sa\n", 3);
 	else if (chr == 'b')
@@ -51,14 +56,17 @@ void	swap_first_2_in_both(t_stack *stack_one, t_stack *stack_two)
 */
 void	push_top_to_top(t_stack *stack_one, t_stack *stack_two, char chr)
 {
-	int temp;
+	int	temp_value;
+	int	temp_index;
 
-	temp = 0;
+	temp_value = 0;
+	temp_index = 0;
 	if (node_size(stack_two->top) == 0)
 		return ;
-	temp = stack_two->top->value;
+	temp_value = stack_two->top->value;
+	temp_index = stack_two->top->index;
 	stack_pop_top(stack_two);
-	stack_push_top(stack_one, temp);
+	stack_push_top(stack_one, temp_value, temp_index);
 	if (chr == 'a')
 		write(1, "pa\n", 3);
 	else
