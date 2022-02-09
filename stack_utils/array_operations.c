@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 13:56:37 by ehosu             #+#    #+#             */
-/*   Updated: 2022/02/03 10:00:10 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/02/09 17:05:59 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	bubble_sort(int arr[], int n)
 
 int	*add_to_array(t_stack *stack)
 {
-	int i;
-	int	*values;
+	int		i;
+	int		*values;
 	t_node	*ptr;
 
 	i = 0;
@@ -53,27 +53,10 @@ int	*add_to_array(t_stack *stack)
 	while (node_size(stack->top) > i)
 	{
 		values[i] = ptr->value;
-
 		ptr = ptr->prev;
 		i++;
 	}
-	// bubble_sort(values, i - 1);
 	return (values);
-}
-
-int	*duplicate_array(int *imputs, int stack_length)
-{
-	int	i;
-	int	*new_array;
-
-	new_array = ft_calloc(stack_length, sizeof(int));
-	i = 0;
-	while (stack_length > i)
-	{
-		new_array[i] = imputs[i];
-		i++;
-	}
-	return (new_array);
 }
 
 void	add_stack_sorted_index_values(int *imputs, t_stack *stack)
@@ -97,21 +80,5 @@ void	add_stack_sorted_index_values(int *imputs, t_stack *stack)
 		}
 		i++;
 	}
-	
-	// i = 0;
-	// while (i < stack_length)
-	// {
-	// 	j = 0;
-	// 	while (j < stack_length)
-	// 	{
-	// 		if (imputs[i] == copy[j])
-	// 		{
-	// 			copy[j] = i;
-	// 			break ;
-	// 		}
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
-	// return (copy);
+	free(imputs);
 }

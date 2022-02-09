@@ -6,16 +6,26 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 15:45:54 by ehosu             #+#    #+#             */
-/*   Updated: 2022/02/09 12:56:09 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/02/09 17:19:33 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
+int	chunk(int stack_size)
+{
+	if (stack_size < 50)
+		return (stack_size / 2);
+	else if (stack_size <= 101)
+		return (stack_size / 4);
+	else
+		return (stack_size / 6);
+}
+
 int	first_or_second_half(t_stack *stack_a, t_stack *stack_b, int value, \
 	int stack_size)
 {
-	char char_ar[2];
+	char	char_ar[2];
 
 	char_ar[0] = 'a';
 	char_ar[1] = 'b';
@@ -49,12 +59,7 @@ int	sorted(t_stack *stack_a, t_stack *stack_b, int chunk_border, int size)
 		{
 			back_top = first_or_second_half(stack_a, stack_b, ptr->value, size);
 			count++;
-			if (node_size(stack_a->top) < 50)
-				size = node_size(stack_a->top) / 2;
-			else if (node_size(stack_a->top) <= 101)
-				size = node_size(stack_a->top) / 4;
-			else
-				size = node_size(stack_a->top) / 6;
+			size = chunk(node_size(stack_a->top));
 			if (check_stack_a_sorted(stack_a))
 				return (1);
 		}
@@ -73,28 +78,17 @@ void	sort_big_amaount(t_stack *stack_a, t_stack *stack_b)
 	int		half_stack_size;
 
 	ptr = stack_a->top;
-	if (node_size(ptr) < 50)
-		chunk_border = node_size(ptr) / 2;
-	else if (node_size(ptr) <= 101)
-		chunk_border = node_size(ptr) / 4;
-	else
-		chunk_border = node_size(ptr) / 6;
+	chunk_border = chunk(node_size(ptr));
 	half_stack_size = node_size(ptr) / 2;
 	while (node_size(stack_a->top) >= 4)
 	{
 		if (node_size(stack_a->top) == 4)
-		{
-			first_or_second_half(stack_a, stack_b, smallest_number(stack_a), half_stack_size);
-		}
+			first_or_second_half(stack_a, stack_b, \
+				smallest_number(stack_a), half_stack_size);
 		if (sorted(stack_a, stack_b, chunk_border, half_stack_size))
 			break ;
 		add_stack_sorted_index_values(add_to_array(stack_a), stack_a);
-		if (node_size(stack_a->top) < 50)
-			chunk_border = node_size(stack_a->top) / 2;
-		else if (node_size(stack_a->top) <= 101)
-			chunk_border = node_size(stack_a->top) / 4;
-		else
-			chunk_border = node_size(stack_a->top) / 6;
+		chunk_border = chunk(node_size(stack_a->top));
 	}
 	small_amount_checker(stack_a);
 }

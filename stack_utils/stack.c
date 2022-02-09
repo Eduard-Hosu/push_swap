@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 13:13:11 by ehosu             #+#    #+#             */
-/*   Updated: 2022/02/03 10:21:51 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/02/09 16:26:52 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 */
 t_node	*create_node(int value, int index)
 {
-	t_node *node;
+	t_node	*node;
 
 	node = malloc(sizeof(t_node));
 	if (!node)
@@ -32,9 +32,9 @@ t_node	*create_node(int value, int index)
 /**
  * Create stack
 */
-t_stack *create_stack(void)
+t_stack	*create_stack(void)
 {
-	t_stack *stack;
+	t_stack	*stack;
 
 	stack = malloc(sizeof(t_stack));
 	stack->bottom = NULL;
@@ -53,7 +53,6 @@ void	stack_destroy(t_stack *stack)
 	stack->top = NULL;
 	free(stack);
 }
-
 
 /**
  * Stack size

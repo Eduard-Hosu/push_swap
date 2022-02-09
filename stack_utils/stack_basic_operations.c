@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 13:20:23 by ehosu             #+#    #+#             */
-/*   Updated: 2022/02/04 16:31:17 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/02/09 16:52:45 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	stack_push_top(t_stack *stack, int value, int index)
 {
-	t_node *node;
+	t_node	*node;
 
 	node = create_node(value, index);
 	node->prev = stack->top;
 	stack->top = node;
-	if (!node->prev) 
+	if (!node->prev)
 	{
 		if (stack->bottom != NULL)
 			return (-1);
@@ -73,7 +73,7 @@ int	stack_pop_top(t_stack *stack)
 
 int	stack_pop_bottom(t_stack *stack)
 {
-	t_node *temp;
+	t_node	*temp;
 
 	if (stack->bottom == NULL)
 		return (-1);
@@ -94,7 +94,7 @@ int	stack_pop_bottom(t_stack *stack)
 
 void	add_to_stack(t_stack *stack, char **argv)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (argv[i])
