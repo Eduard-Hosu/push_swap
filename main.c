@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:56:37 by ehosu             #+#    #+#             */
-/*   Updated: 2022/02/08 18:05:15 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/02/09 14:04:25 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -630,9 +630,52 @@ void	move_biggest_to_stack(t_stack *stack_a, t_stack *stack_b)
 // 	small_amount_checker(stack_a);
 // }
 
+// void	check_values(char **argv)
+// {
+// 	int i;
+
+// 	i = 1;
+// 	while (argv[i])
+// 	{
+// 		printf("%s\n", argv[i]);
+// 		while (argv[i])
+// 		{
+		// 	printf("%c\n", *argv[i]);
+		// 	exit(EXIT_SUCCESS);
+		// }
+		
+		// if ((ft_atoi(argv[i]) == 0) && (ft_strncmp(argv[i], "0", 1) != 0))
+		// {
+		// 	write(1, "Error\n", 6);
+		// 	exit(EXIT_FAILURE);
+		// }
+// 		i++;
+// 	}
+// }
+// static	int	is_space_c(int c)
+// {
+// 	if (c == '\t' || c == ' ' || c == '\n'
+// 		|| c == '\r' || c == '\v' || c == '\f')
+// 		return (1);
+// 	return (0);
+// }
+
+// int	ft_atoc(const char *str)
+// {
+// 	int	i;
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (ft_isalpha(str[i]))
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
 int main(int argc, char **argv)
 {
-	// t_node *ptr_a;
+	t_node *ptr_a;
 	t_stack *a_stack;
 	t_stack *b_stack;
 
@@ -644,6 +687,8 @@ int main(int argc, char **argv)
 	handle_errors(argv);
 	add_to_stack(a_stack, argv);
 	add_stack_sorted_index_values(add_to_array(a_stack), a_stack);
+	if (check_stack_a_sorted(a_stack))
+		exit(EXIT_SUCCESS);
 	// ptr_a = a_stack->top;
 	// while (ptr_a != NULL)
 	// {
@@ -653,20 +698,20 @@ int main(int argc, char **argv)
 	sort_big_amaount(a_stack, b_stack);
 	move_biggest_to_stack(a_stack, b_stack);
 	//Personal
-	// printf("Check stack_a\n");
-	// ptr_a = a_stack->top;
-	// while (ptr_a != NULL)
-	// {
-	// 	printf("%d\n", ptr_a->value);
-	// 	ptr_a = ptr_a->prev;
-	// }
-	// printf("Check stack_b\n");
-	// ptr_a = b_stack->top;
-	// while (ptr_a != NULL)
-	// {
-	// 	printf("%d\n", ptr_a->value);
-	// 	ptr_a = ptr_a->prev;
-	// }
+	printf("Check stack_a\n");
+	ptr_a = a_stack->top;
+	while (ptr_a != NULL)
+	{
+		printf("%d\n", ptr_a->value);
+		ptr_a = ptr_a->prev;
+	}
+	printf("Check stack_b\n");
+	ptr_a = b_stack->top;
+	while (ptr_a != NULL)
+	{
+		printf("%d\n", ptr_a->value);
+		ptr_a = ptr_a->prev;
+	}
 
 	// printf("%d\n", a_stack->top->value);
 	exit(EXIT_SUCCESS);

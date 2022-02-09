@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 15:45:54 by ehosu             #+#    #+#             */
-/*   Updated: 2022/02/08 18:00:11 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/02/09 12:56:09 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int	first_or_second_half(t_stack *stack_a, t_stack *stack_b, int value, \
 	char_ar[1] = 'b';
 	if (check_position(stack_a, value) <= stack_size)
 	{
-		check_top_push_value(stack_a, stack_b, value, char_ar); //a, b;
+		check_top_push_value(stack_a, stack_b, value, char_ar);
 		return (1);
 	}
 	else
 	{
-		check_bottom_push_value(stack_a, stack_b, value, char_ar); //a, b;
+		check_bottom_push_value(stack_a, stack_b, value, char_ar);
 		return (1);
 	}
 	return (0);
@@ -49,7 +49,6 @@ int	sorted(t_stack *stack_a, t_stack *stack_b, int chunk_border, int size)
 		{
 			back_top = first_or_second_half(stack_a, stack_b, ptr->value, size);
 			count++;
-			// size = node_size(stack_a->top) / 2;
 			if (node_size(stack_a->top) < 50)
 				size = node_size(stack_a->top) / 2;
 			else if (node_size(stack_a->top) <= 101)
@@ -74,7 +73,6 @@ void	sort_big_amaount(t_stack *stack_a, t_stack *stack_b)
 	int		half_stack_size;
 
 	ptr = stack_a->top;
-	// chunk_border = node_size(ptr) / 2;
 	if (node_size(ptr) < 50)
 		chunk_border = node_size(ptr) / 2;
 	else if (node_size(ptr) <= 101)
@@ -87,20 +85,16 @@ void	sort_big_amaount(t_stack *stack_a, t_stack *stack_b)
 		if (node_size(stack_a->top) == 4)
 		{
 			first_or_second_half(stack_a, stack_b, smallest_number(stack_a), half_stack_size);
-			// if (stack_a->top->index == 1 && stack_a->top->prev->index == 0)
-			// 	swap_first_2_elements(stack_a, 'a');
 		}
 		if (sorted(stack_a, stack_b, chunk_border, half_stack_size))
 			break ;
 		add_stack_sorted_index_values(add_to_array(stack_a), stack_a);
-		// chunk_border = node_size(stack_a->top) / 2;
 		if (node_size(stack_a->top) < 50)
 			chunk_border = node_size(stack_a->top) / 2;
 		else if (node_size(stack_a->top) <= 101)
 			chunk_border = node_size(stack_a->top) / 4;
 		else
 			chunk_border = node_size(stack_a->top) / 6;
-
 	}
 	small_amount_checker(stack_a);
 }
