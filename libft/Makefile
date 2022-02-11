@@ -6,7 +6,7 @@
 #    By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/21 15:26:47 by ehosu             #+#    #+#              #
-#    Updated: 2022/01/26 13:05:39 by ehosu            ###   ########.fr        #
+#    Updated: 2022/02/11 13:48:30 by ehosu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ $(NAME): $(OBJ_FILES) $(HEADER)
 	@echo "Done!"
 
 %.o: %.c $(HEADER_FILES)
-	$(CC) -c $(CFLAGS) -o $@ $<
+	$(CC) -c $(C_FLAGS) -o $@ $<
 
 clean:
 	rm -f $(REG_OBJ_FILES) $(BONUS_OBJ_FILES)

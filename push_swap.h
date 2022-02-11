@@ -6,7 +6,7 @@
 /*   By: ehosu <ehosu@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:54:05 by ehosu             #+#    #+#             */
-/*   Updated: 2022/02/09 16:43:26 by ehosu            ###   ########.fr       */
+/*   Updated: 2022/02/11 13:28:05 by ehosu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ int		check_stack_a_sorted(t_stack *stack);
 int		check_stack_b_sorted(t_stack *stack);
 void	sort_big_amaount(t_stack *stack_a, t_stack *stack_b);
 void	move_biggest_to_stack(t_stack *stack_a, t_stack *stack_b);
+void	destroy(t_stack *stack_a, t_stack *stack_b);
 
 #endif
